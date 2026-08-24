@@ -146,8 +146,10 @@ I'm interested in exploring how **Artificial Intelligence** can be integrated in
 ## 🐍 Contribution Activity
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/refs/heads/output/github-contribution-grid-snake.svg%20dist/github-contribution-grid-snake.svg"
-       alt="GitHub contribution snake">
+  <img
+    src="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/refs/heads/output/github-contribution-grid-snake.svg%20dist/github-contribution-grid-snake-dark.svg"
+    alt="GitHub contribution snake"
+  />
 </p>
 
 ## 🌍 Languages
