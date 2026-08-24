@@ -14,18 +14,21 @@
 
 <br>
 
-<table>
+<div align="center">
+
+<table width="85%">
 <tr>
+
 <td width="50%" valign="top">
 
 ### 👩‍💻 About Me
 
-* Double Bachelor's Degree student at **TecnoCampus**
-* Software Development & Software Engineering
-* Data Analytics & Business Intelligence
-* Game Development & Game Design
-* Artificial Intelligence
-* Backend Development & Databases
+- Double Bachelor's Degree student at **TecnoCampus**
+- Software Development & Software Engineering
+- Data Analytics & Business Intelligence
+- Game Development & Game Design
+- Artificial Intelligence
+- Backend Development & Databases
 
 </td>
 
@@ -43,17 +46,6 @@ STATUS: ACTIVE
 > Backend Architecture
 
 Building · Learning · Creating
-```
-
-</td>
-</tr>
-</table>
-
-<br>
-
-<table>
-<tr>
-<td width="100%">
 
 ### 🕹️ `$ ./pacman --eat=contributions`
 
