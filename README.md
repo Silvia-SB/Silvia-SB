@@ -1,12 +1,18 @@
-# Hi, I'm Silvia 👋
+<div align="center">
 
-### 💻 Software Development · 📊 Data Analytics · 🎮 Game Development
+<h1>Hi, I'm Silvia 👋</h1>
 
-I'm currently studying a **Double Bachelor's Degree in Computer Science – Management and Information Systems & Game Design and Production** at **TecnoCampus**.
+<h3>Software Development · Data Analytics · Game Development</h3>
 
-My academic background combines **software engineering, data, information systems, game development and digital design**.
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2800&pause=900&center=true&vCenter=true&width=750&lines=Computer+Science+%26+Game+Development+Student;Turning+ideas+into+code+%26+interactive+experiences;Exploring+Data+%26+Artificial+Intelligence;Learning+%C2%B7+Building+%C2%B7+Creating" alt="Typing SVG" />
 
-I'm particularly interested in **Software Development, Data Analytics, Backend Development, Artificial Intelligence and Game Development**, and I enjoy applying technology, data and creativity to practical projects and real-world problems.
+<br>
+
+<code>SOFTWARE</code> · <code>DATA</code> · <code>GAMES</code> · <code>AI</code> · <code>DESIGN</code>
+
+</div>
+
+<br>
 
 ## 👩‍💻 About Me
 
