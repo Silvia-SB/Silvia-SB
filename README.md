@@ -14,16 +14,66 @@
 
 <br>
 
-## 👩‍💻 About Me
+<table>
+<tr>
+<td width="50%" valign="top">
 
-* 🎓 Double Bachelor's Degree student at **TecnoCampus**
-* 💻 Software Development & Software Engineering
-* 📊 Data Analytics, Data Visualization & Business Intelligence
-* 🎮 Game Development & Game Design
-* 🤖 Artificial Intelligence & intelligent applications
-* 🏗️ Backend Development, Databases & Software Architecture
-* 🌐 Computer Networks, Linux & Virtualized Environments
-* 🎨 3D Modelling, Digital Design & UI/UX
+### 👩‍💻 About Me
+
+* Double Bachelor's Degree student at **TecnoCampus**
+* Software Development & Software Engineering
+* Data Analytics & Business Intelligence
+* Game Development & Game Design
+* Artificial Intelligence
+* Backend Development & Databases
+
+</td>
+
+<td width="50%" valign="top">
+
+### ⚡ Current Focus
+
+```text
+STATUS: ACTIVE
+
+> Software Engineering
+> Data Analytics
+> Artificial Intelligence
+> Game Development
+> Backend Architecture
+
+Building · Learning · Creating
+```
+
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<td width="100%">
+
+### 🕹️ `$ ./pacman --eat=contributions`
+
+<p align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/output/pacman-contribution-graph-dark.svg">
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/output/pacman-contribution-graph.svg">
+    <img
+      alt="Pac-Man contribution graph"
+      src="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/output/pacman-contribution-graph.svg">
+  </picture>
+</p>
+
+</td>
+</tr>
+</table>
 
 ## 💻 Programming Languages
 
