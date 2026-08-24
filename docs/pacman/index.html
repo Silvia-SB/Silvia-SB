@@ -1,92 +1,1492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Silvia's Pac-Man Contributions</title>
+  <title>Silvia's Contribution Pac-Man</title>
 
   <style>
+    :root {
+      --background: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --blue: #58a6ff;
+      --green: #238636;
+      --green-light: #39d353;
+      --yellow: #ffd700;
+      --danger: #f85149;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      font-family: Arial, sans-serif;
-      background: #0d1117;
-      color: #f0f6fc;
+      align-items: center;
+
+      padding: 30px 15px;
+    }
+
+    .page {
+      width: min(1200px, 100%);
+      text-align: center;
     }
 
     h1 {
-      margin-bottom: 8px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3rem);
     }
 
-    p {
-      color: #8b949e;
+    .subtitle {
+      color: var(--muted);
+      margin-top: 12px;
+      margin-bottom: 30px;
+      font-size: 1.05rem;
     }
 
-    #game {
-      width: min(1100px, 95vw);
-      margin-top: 30px;
+    .game-panel {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 20px;
+
+      box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.25);
     }
 
-    .back {
-      margin-top: 30px;
-      color: #58a6ff;
+    .terminal-title {
+      text-align: left;
+      font-family: monospace;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .terminal-title span {
+      color: var(--green-light);
+    }
+
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      gap: 12px;
+
+      margin-bottom: 16px;
+
+      font-family: monospace;
+    }
+
+    .hud-box {
+      border: 1px solid var(--border);
+      background: var(--background);
+
+      border-radius: 6px;
+
+      padding: 8px 14px;
+    }
+
+    .hud strong {
+      color: var(--green-light);
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      overflow-x: auto;
+
+      padding: 10px 0;
+    }
+
+    canvas {
+      display: block;
+
+      max-width: 100%;
+      height: auto;
+
+      margin: 0 auto;
+
+      border-radius: 8px;
+      background: var(--background);
+
+      image-rendering: pixelated;
+    }
+
+    .message {
+      min-height: 34px;
+
+      margin-top: 12px;
+
+      font-family: monospace;
+      font-size: 1rem;
+    }
+
+    .message.game-over {
+      color: var(--danger);
+      font-weight: bold;
+    }
+
+    .message.win {
+      color: var(--green-light);
+      font-weight: bold;
+    }
+
+    .instructions {
+      margin: 20px 0 10px;
+
+      color: var(--muted);
+
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .keyboard {
+      margin-top: 10px;
+    }
+
+    kbd {
+      background: #21262d;
+
+      border: 1px solid var(--border);
+      border-bottom-width: 2px;
+
+      border-radius: 5px;
+
+      padding: 4px 8px;
+
+      color: var(--text);
+
+      font-family: monospace;
+    }
+
+    .actions {
+      margin-top: 20px;
+
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+
+      flex-wrap: wrap;
+    }
+
+    button,
+    .button {
+      border: 1px solid rgba(240, 246, 252, 0.1);
+
+      border-radius: 6px;
+
+      padding: 10px 18px;
+
+      background: var(--green);
+      color: white;
+
+      font-weight: 600;
+
+      cursor: pointer;
       text-decoration: none;
+
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+    }
+
+    button:hover,
+    .button:hover {
+      background: #2ea043;
+      transform: translateY(-1px);
+    }
+
+    .secondary {
+      background: #21262d;
+
+      border-color: var(--border);
+    }
+
+    .secondary:hover {
+      background: #30363d;
+    }
+
+    .mobile-controls {
+      display: none;
+
+      margin-top: 25px;
+
+      user-select: none;
+    }
+
+    .control-grid {
+      display: grid;
+
+      grid-template-columns: repeat(3, 55px);
+      grid-template-rows: repeat(2, 55px);
+
+      gap: 6px;
+
+      justify-content: center;
+    }
+
+    .direction {
+      width: 55px;
+      height: 55px;
+
+      padding: 0;
+
+      font-size: 1.4rem;
+
+      background: #21262d;
+
+      border: 1px solid var(--border);
+    }
+
+    .up {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .left {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .down {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .right {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .footer {
+      margin-top: 25px;
+    }
+
+    .footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 15px 8px;
+      }
+
+      .game-panel {
+        padding: 12px;
+      }
+
+      .mobile-controls {
+        display: block;
+      }
+
+      .keyboard {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
 
+<div class="page">
+
   <h1>Silvia's Contribution Pac-Man</h1>
 
-  <p>
-    Pac-Man exploring my GitHub contributions
+  <p class="subtitle">
+    Eat the contributions. Avoid the ghosts.
   </p>
 
-  <div id="game"></div>
+  <section class="game-panel">
 
-  <a
-    class="back"
-    href="https://github.com/Silvia-SB"
-  >
-    ← Back to GitHub profile
-  </a>
+    <div class="terminal-title">
+      <span>$</span> ./pacman --eat=contributions
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/pacman-contribution-graph/dist/pacman-contribution-graph.min.js"></script>
+    <div class="hud">
 
-  <script type="module">
-    import {
-      ArcadeRenderer
-    } from "https://cdn.jsdelivr.net/npm/pacman-contribution-graph/dist/pacman-contribution-graph.min.js";
+      <div class="hud-box">
+        SCORE:
+        <strong id="score">0</strong>
+      </div>
 
-    const gameContainer = document.getElementById("game");
+      <div class="hud-box">
+        CONTRIBUTIONS:
+        <strong id="remaining">0</strong>
+      </div>
 
-    const renderer = new ArcadeRenderer({
-      game: "pacman",
-      username: "Silvia-SB",
-      platform: "github",
-      gameTheme: "github-dark",
+      <div class="hud-box">
+        LIVES:
+        <strong id="lives">❤️❤️❤️</strong>
+      </div>
 
-      svgCallback: (svg) => {
-        gameContainer.innerHTML = svg;
-      },
+    </div>
 
-      gameOverCallback: () => {
-        console.log("Game finished");
-      },
+    <div class="canvas-wrapper">
+      <canvas
+        id="game"
+        width="1060"
+        height="280"
+      ></canvas>
+    </div>
 
-      gameStatsCallback: (stats) => {
-        console.log(stats);
+    <div
+      id="message"
+      class="message"
+    >
+      Press an arrow key or WASD to start.
+    </div>
+
+    <div class="instructions">
+
+      <div class="keyboard">
+        Move with
+        <kbd>W</kbd>
+        <kbd>A</kbd>
+        <kbd>S</kbd>
+        <kbd>D</kbd>
+
+        or
+
+        <kbd>↑</kbd>
+        <kbd>←</kbd>
+        <kbd>↓</kbd>
+        <kbd>→</kbd>
+      </div>
+
+    </div>
+
+    <div class="mobile-controls">
+
+      <div class="control-grid">
+
+        <button class="direction up" data-direction="up">
+          ↑
+        </button>
+
+        <button class="direction left" data-direction="left">
+          ←
+        </button>
+
+        <button class="direction down" data-direction="down">
+          ↓
+        </button>
+
+        <button class="direction right" data-direction="right">
+          →
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="actions">
+
+      <button id="restart">
+        ▶ PLAY AGAIN
+      </button>
+
+      <a
+        class="button secondary"
+        href="https://github.com/Silvia-SB"
+      >
+        ← GitHub Profile
+      </a>
+
+    </div>
+
+  </section>
+
+  <div class="footer">
+    Built with JavaScript · GitHub Pages · Pac-Man inspiration
+  </div>
+
+</div>
+
+<script>
+
+  /*
+   * Silvia's Contribution Pac-Man
+   * --------------------------------
+   * Small Pac-Man inspired game for a GitHub profile.
+   */
+
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+
+  const scoreElement = document.getElementById("score");
+  const remainingElement = document.getElementById("remaining");
+  const livesElement = document.getElementById("lives");
+  const messageElement = document.getElementById("message");
+
+  const COLS = 53;
+  const ROWS = 7;
+
+  const CELL = 20;
+
+  const OFFSET_X = 0;
+  const OFFSET_Y = 60;
+
+  const WIDTH = COLS * CELL;
+
+  canvas.width = WIDTH;
+  canvas.height = 260;
+
+  /*
+   * 0 = free
+   * 1 = wall
+   *
+   * We generate a contribution-style maze instead of manually
+   * maintaining hundreds of values.
+   */
+
+  let maze = [];
+
+  let pellets = [];
+
+  let score = 0;
+  let lives = 3;
+
+  let started = false;
+  let gameOver = false;
+
+  let animationFrame = null;
+
+  const player = {
+    col: 1,
+    row: 3,
+
+    direction: "right",
+    nextDirection: "right"
+  };
+
+  const ghosts = [
+    {
+      col: 26,
+      row: 2,
+      color: "#f85149"
+    },
+
+    {
+      col: 27,
+      row: 4,
+      color: "#db61a2"
+    },
+
+    {
+      col: 29,
+      row: 2,
+      color: "#58a6ff"
+    },
+
+    {
+      col: 30,
+      row: 4,
+      color: "#ff9f43"
+    }
+  ];
+
+  const ghostStarts = ghosts.map(
+    ghost => ({
+      col: ghost.col,
+      row: ghost.row
+    })
+  );
+
+  function generateMaze() {
+
+    maze = Array.from(
+      { length: ROWS },
+      () => Array(COLS).fill(0)
+    );
+
+    /*
+     * Add maze fragments.
+     * The open areas intentionally resemble a GitHub
+     * contribution calendar.
+     */
+
+    for (let col = 4; col < COLS - 4; col += 7) {
+
+      for (let row = 0; row < ROWS; row++) {
+
+        if (row !== 3) {
+          maze[row][col] = 1;
+        }
+
       }
-    });
 
-    renderer.start();
-  </script>
+    }
+
+    for (let col = 8; col < COLS - 5; col += 10) {
+
+      const row = 2;
+
+      for (
+        let x = col;
+        x < Math.min(col + 4, COLS);
+        x++
+      ) {
+
+        if (x !== col + 2) {
+          maze[row][x] = 1;
+        }
+
+      }
+
+    }
+
+    for (let col = 5; col < COLS - 5; col += 9) {
+
+      const row = 5;
+
+      for (
+        let x = col;
+        x < Math.min(col + 4, COLS);
+        x++
+      ) {
+
+        if (x !== col + 1) {
+          maze[row][x] = 1;
+        }
+
+      }
+
+    }
+
+    /*
+     * Guarantee important spawn positions.
+     */
+
+    maze[player.row][player.col] = 0;
+
+    ghosts.forEach(
+      ghost => {
+        maze[ghost.row][ghost.col] = 0;
+      }
+    );
+
+  }
+
+  function generatePellets() {
+
+    pellets = Array.from(
+      { length: ROWS },
+      () => Array(COLS).fill(false)
+    );
+
+    let count = 0;
+
+    for (let row = 0; row < ROWS; row++) {
+
+      for (let col = 0; col < COLS; col++) {
+
+        if (
+          maze[row][col] === 0 &&
+          Math.random() > 0.52
+        ) {
+
+          pellets[row][col] = true;
+          count++;
+
+        }
+
+      }
+
+    }
+
+    pellets[player.row][player.col] = false;
+
+    remainingElement.textContent = count;
+
+  }
+
+  function drawBackground() {
+
+    ctx.fillStyle = "#0d1117";
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+  }
+
+  function drawCalendarLabels() {
+
+    const months = [
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug"
+    ];
+
+    ctx.font = "11px monospace";
+
+    ctx.fillStyle = "#8b949e";
+
+    months.forEach(
+      (month, index) => {
+
+        const x =
+          (index / (months.length - 1)) *
+          (canvas.width - 45);
+
+        ctx.fillText(
+          month,
+          x,
+          25
+        );
+
+      }
+    );
+
+  }
+
+  function drawGrid() {
+
+    for (let row = 0; row < ROWS; row++) {
+
+      for (let col = 0; col < COLS; col++) {
+
+        const x =
+          OFFSET_X +
+          col * CELL;
+
+        const y =
+          OFFSET_Y +
+          row * CELL;
+
+        if (maze[row][col] === 1) {
+
+          ctx.fillStyle = "#30363d";
+
+          ctx.fillRect(
+            x + 2,
+            y + 2,
+            CELL - 4,
+            CELL - 4
+          );
+
+        } else {
+
+          ctx.fillStyle = "#161b22";
+
+          ctx.fillRect(
+            x + 2,
+            y + 2,
+            CELL - 4,
+            CELL - 4
+          );
+
+        }
+
+        if (pellets[row][col]) {
+
+          ctx.fillStyle = "#39d353";
+
+          ctx.beginPath();
+
+          ctx.arc(
+            x + CELL / 2,
+            y + CELL / 2,
+            3,
+            0,
+            Math.PI * 2
+          );
+
+          ctx.fill();
+
+        }
+
+      }
+
+    }
+
+  }
+
+  function drawPacman() {
+
+    const x =
+      OFFSET_X +
+      player.col * CELL +
+      CELL / 2;
+
+    const y =
+      OFFSET_Y +
+      player.row * CELL +
+      CELL / 2;
+
+    let rotation = 0;
+
+    switch (player.direction) {
+
+      case "left":
+        rotation = Math.PI;
+        break;
+
+      case "up":
+        rotation = -Math.PI / 2;
+        break;
+
+      case "down":
+        rotation = Math.PI / 2;
+        break;
+
+    }
+
+    ctx.save();
+
+    ctx.translate(x, y);
+
+    ctx.rotate(rotation);
+
+    ctx.fillStyle = "#ffd700";
+
+    ctx.beginPath();
+
+    ctx.moveTo(0, 0);
+
+    ctx.arc(
+      0,
+      0,
+      8,
+      0.25 * Math.PI,
+      1.75 * Math.PI
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+    ctx.restore();
+
+  }
+
+  function drawGhost(ghost) {
+
+    const x =
+      OFFSET_X +
+      ghost.col * CELL +
+      CELL / 2;
+
+    const y =
+      OFFSET_Y +
+      ghost.row * CELL +
+      CELL / 2;
+
+    ctx.fillStyle = ghost.color;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y - 1,
+      7,
+      Math.PI,
+      0
+    );
+
+    ctx.lineTo(
+      x + 7,
+      y + 7
+    );
+
+    ctx.lineTo(
+      x + 3,
+      y + 4
+    );
+
+    ctx.lineTo(
+      x,
+      y + 7
+    );
+
+    ctx.lineTo(
+      x - 3,
+      y + 4
+    );
+
+    ctx.lineTo(
+      x - 7,
+      y + 7
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+    /*
+     * Eyes
+     */
+
+    ctx.fillStyle = "white";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x - 3,
+      y - 1,
+      2,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.arc(
+      x + 3,
+      y - 1,
+      2,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle = "#0969da";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x - 3,
+      y - 1,
+      1,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.arc(
+      x + 3,
+      y - 1,
+      1,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+
+  }
+
+  function draw() {
+
+    drawBackground();
+
+    drawCalendarLabels();
+
+    drawGrid();
+
+    drawPacman();
+
+    ghosts.forEach(drawGhost);
+
+  }
+
+  function directionOffset(direction) {
+
+    switch (direction) {
+
+      case "up":
+        return {
+          col: 0,
+          row: -1
+        };
+
+      case "down":
+        return {
+          col: 0,
+          row: 1
+        };
+
+      case "left":
+        return {
+          col: -1,
+          row: 0
+        };
+
+      case "right":
+        return {
+          col: 1,
+          row: 0
+        };
+
+    }
+
+  }
+
+  function canMove(
+    col,
+    row,
+    direction
+  ) {
+
+    const offset =
+      directionOffset(direction);
+
+    let nextCol =
+      col +
+      offset.col;
+
+    const nextRow =
+      row +
+      offset.row;
+
+    /*
+     * Horizontal tunnel.
+     */
+
+    if (nextCol < 0) {
+      nextCol = COLS - 1;
+    }
+
+    if (nextCol >= COLS) {
+      nextCol = 0;
+    }
+
+    if (
+      nextRow < 0 ||
+      nextRow >= ROWS
+    ) {
+
+      return false;
+
+    }
+
+    return (
+      maze[nextRow][nextCol] === 0
+    );
+
+  }
+
+  function moveEntity(
+    entity,
+    direction
+  ) {
+
+    const offset =
+      directionOffset(direction);
+
+    entity.col += offset.col;
+
+    entity.row += offset.row;
+
+    if (entity.col < 0) {
+      entity.col = COLS - 1;
+    }
+
+    if (entity.col >= COLS) {
+      entity.col = 0;
+    }
+
+  }
+
+  function movePlayer() {
+
+    if (
+      canMove(
+        player.col,
+        player.row,
+        player.nextDirection
+      )
+    ) {
+
+      player.direction =
+        player.nextDirection;
+
+    }
+
+    if (
+      canMove(
+        player.col,
+        player.row,
+        player.direction
+      )
+    ) {
+
+      moveEntity(
+        player,
+        player.direction
+      );
+
+    }
+
+    eatPellet();
+
+  }
+
+  function eatPellet() {
+
+    if (
+      pellets[player.row][player.col]
+    ) {
+
+      pellets[player.row][player.col] =
+        false;
+
+      score += 10;
+
+      scoreElement.textContent =
+        score;
+
+      const remaining =
+        pellets.flat().filter(Boolean).length;
+
+      remainingElement.textContent =
+        remaining;
+
+      if (remaining === 0) {
+
+        gameOver = true;
+
+        messageElement.textContent =
+          "YOU WIN! All contributions collected.";
+
+        messageElement.className =
+          "message win";
+
+      }
+
+    }
+
+  }
+
+  function possibleDirections(entity) {
+
+    return [
+      "up",
+      "down",
+      "left",
+      "right"
+    ].filter(
+      direction =>
+        canMove(
+          entity.col,
+          entity.row,
+          direction
+        )
+    );
+
+  }
+
+  function moveGhosts() {
+
+    ghosts.forEach(
+      ghost => {
+
+        const directions =
+          possibleDirections(ghost);
+
+        if (directions.length === 0) {
+          return;
+        }
+
+        /*
+         * Some ghosts occasionally chase Pac-Man.
+         */
+
+        let direction;
+
+        if (
+          Math.random() <
+          0.45
+        ) {
+
+          direction =
+            directions.sort(
+              (a, b) => {
+
+                const posA =
+                  projectedPosition(
+                    ghost,
+                    a
+                  );
+
+                const posB =
+                  projectedPosition(
+                    ghost,
+                    b
+                  );
+
+                return (
+                  distance(
+                    posA,
+                    player
+                  ) -
+                  distance(
+                    posB,
+                    player
+                  )
+                );
+
+              }
+            )[0];
+
+        } else {
+
+          direction =
+            directions[
+              Math.floor(
+                Math.random() *
+                directions.length
+              )
+            ];
+
+        }
+
+        moveEntity(
+          ghost,
+          direction
+        );
+
+      }
+    );
+
+  }
+
+  function projectedPosition(
+    entity,
+    direction
+  ) {
+
+    const offset =
+      directionOffset(direction);
+
+    return {
+      col:
+        entity.col +
+        offset.col,
+
+      row:
+        entity.row +
+        offset.row
+    };
+
+  }
+
+  function distance(a, b) {
+
+    return (
+      Math.abs(
+        a.col -
+        b.col
+      ) +
+      Math.abs(
+        a.row -
+        b.row
+      )
+    );
+
+  }
+
+  function checkGhostCollision() {
+
+    const collided =
+      ghosts.some(
+        ghost =>
+          ghost.col === player.col &&
+          ghost.row === player.row
+      );
+
+    if (!collided) {
+      return;
+    }
+
+    lives--;
+
+    updateLives();
+
+    if (lives <= 0) {
+
+      gameOver = true;
+
+      messageElement.textContent =
+        `GAME OVER — Final score: ${score}`;
+
+      messageElement.className =
+        "message game-over";
+
+      return;
+
+    }
+
+    messageElement.textContent =
+      "Ghost collision! Try again.";
+
+    resetPositions();
+
+  }
+
+  function updateLives() {
+
+    livesElement.textContent =
+      "❤️".repeat(
+        Math.max(
+          0,
+          lives
+        )
+      );
+
+  }
+
+  function resetPositions() {
+
+    player.col = 1;
+    player.row = 3;
+
+    player.direction = "right";
+    player.nextDirection = "right";
+
+    ghosts.forEach(
+      (ghost, index) => {
+
+        ghost.col =
+          ghostStarts[index].col;
+
+        ghost.row =
+          ghostStarts[index].row;
+
+      }
+    );
+
+  }
+
+  let playerTimer = 0;
+  let ghostTimer = 0;
+
+  let lastTime = 0;
+
+  function gameLoop(time) {
+
+    if (gameOver) {
+
+      draw();
+
+      return;
+
+    }
+
+    if (!started) {
+
+      draw();
+
+      animationFrame =
+        requestAnimationFrame(
+          gameLoop
+        );
+
+      return;
+
+    }
+
+    const delta =
+      time -
+      lastTime;
+
+    lastTime = time;
+
+    playerTimer += delta;
+    ghostTimer += delta;
+
+    if (
+      playerTimer >
+      130
+    ) {
+
+      movePlayer();
+
+      playerTimer = 0;
+
+      checkGhostCollision();
+
+    }
+
+    if (
+      ghostTimer >
+      260
+    ) {
+
+      moveGhosts();
+
+      ghostTimer = 0;
+
+      checkGhostCollision();
+
+    }
+
+    draw();
+
+    animationFrame =
+      requestAnimationFrame(
+        gameLoop
+      );
+
+  }
+
+  function setDirection(direction) {
+
+    if (gameOver) {
+      return;
+    }
+
+    player.nextDirection =
+      direction;
+
+    if (!started) {
+
+      started = true;
+
+      messageElement.textContent =
+        "Game started — eat the green contributions!";
+
+    }
+
+  }
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      const key =
+        event.key.toLowerCase();
+
+      const controls = {
+
+        arrowup: "up",
+        w: "up",
+
+        arrowdown: "down",
+        s: "down",
+
+        arrowleft: "left",
+        a: "left",
+
+        arrowright: "right",
+        d: "right"
+
+      };
+
+      if (controls[key]) {
+
+        event.preventDefault();
+
+        setDirection(
+          controls[key]
+        );
+
+      }
+
+    }
+  );
+
+  document
+    .querySelectorAll(
+      ".direction"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "pointerdown",
+          () => {
+
+            setDirection(
+              button.dataset.direction
+            );
+
+          }
+        );
+
+      }
+    );
+
+  document
+    .getElementById(
+      "restart"
+    )
+    .addEventListener(
+      "click",
+      restartGame
+    );
+
+  function restartGame() {
+
+    score = 0;
+    lives = 3;
+
+    started = false;
+    gameOver = false;
+
+    scoreElement.textContent = "0";
+
+    updateLives();
+
+    messageElement.textContent =
+      "Press an arrow key or WASD to start.";
+
+    messageElement.className =
+      "message";
+
+    resetPositions();
+
+    generateMaze();
+
+    generatePellets();
+
+    if (animationFrame) {
+
+      cancelAnimationFrame(
+        animationFrame
+      );
+
+    }
+
+    lastTime = performance.now();
+
+    animationFrame =
+      requestAnimationFrame(
+        gameLoop
+      );
+
+  }
+
+  /*
+   * Initial game setup.
+   */
+
+  restartGame();
+
+</script>
 
 </body>
 </html>
