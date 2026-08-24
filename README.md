@@ -16,27 +16,29 @@
 
 <div align="center">
 
-<table width="85%">
+<table width="90%">
 <tr>
 
 <td width="50%" valign="top">
 
-### 👩‍💻 About Me
+<h3>👩‍💻 About Me</h3>
 
-- Double Bachelor's Degree student at **TecnoCampus**
-- Software Development & Software Engineering
-- Data Analytics & Business Intelligence
-- Game Development & Game Design
-- Artificial Intelligence
-- Backend Development & Databases
+<ul>
+  <li>Double Bachelor's Degree student at <b>TecnoCampus</b></li>
+  <li>Software Development & Software Engineering</li>
+  <li>Data Analytics & Business Intelligence</li>
+  <li>Game Development & Game Design</li>
+  <li>Artificial Intelligence</li>
+  <li>Backend Development & Databases</li>
+</ul>
 
 </td>
 
 <td width="50%" valign="top">
 
-### ⚡ Current Focus
+<h3>⚡ Current Focus</h3>
 
-```text
+<pre>
 STATUS: ACTIVE
 
 > Software Engineering
@@ -46,6 +48,48 @@ STATUS: ACTIVE
 > Backend Architecture
 
 Building · Learning · Creating
+</pre>
+
+</td>
+
+</tr>
+</table>
+
+</div>
+
+<br>
+
+<table width="100%">
+<tr>
+<td>
+
+<h3>🕹️ $ ./pacman --eat=contributions</h3>
+
+<p align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/output/pacman-contribution-graph-dark.svg">
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/output/pacman-contribution-graph.svg">
+    <img
+      alt="Pac-Man contribution graph"
+      src="https://raw.githubusercontent.com/Silvia-SB/Silvia-SB/output/pacman-contribution-graph.svg">
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://silvia-sb.github.io/Silvia-SB/pacman/">
+    <img
+      src="https://img.shields.io/badge/▶_PLAY_IT_YOURSELF-2EA44F?style=for-the-badge"
+      alt="Play Pac-Man">
+  </a>
+</p>
+
+</td>
+</tr>
+</table>
 
 ### 🕹️ `$ ./pacman --eat=contributions`
 
