@@ -349,6 +349,11 @@
       </div>
 
       <div class="hud-box">
+        HIGH SCORE:
+        <strong id="highScore">0</strong>
+      </div>
+
+      <div class="hud-box">
         CONTRIBUTIONS:
         <strong id="remaining">0</strong>
       </div>
@@ -448,6 +453,9 @@
   const scoreElement =
     document.getElementById("score");
 
+  const highScoreElement =
+  document.getElementById("highScore");
+
   const remainingElement =
     document.getElementById("remaining");
 
@@ -524,6 +532,16 @@
 
 
   let score = 0;
+
+  let highScore =
+    Number(
+      localStorage.getItem(
+        "pacmanHighScore"
+      )
+    ) || 0;
+
+  highScoreElement.textContent =
+  highScore;
 
   let lives = 3;
 
@@ -1865,6 +1883,7 @@
       scoreElement.textContent =
         score;
 
+      updateHighScore();
 
       messageElement.textContent =
         `BONUS FRUIT! +${FRUIT_SCORE} points 🍒`;
@@ -2139,6 +2158,7 @@
       scoreElement.textContent =
         score;
 
+      updateHighScore();
 
       const remaining =
         pellets
@@ -2742,6 +2762,7 @@
       scoreElement.textContent =
         score;
 
+      updateHighScore();
 
       messageElement.textContent =
         `${ghost.name} eaten! +${points} points 👻`;
@@ -3059,7 +3080,7 @@
     if (
       !started
     ) {
-
+  
       started =
         true;
 
@@ -3192,6 +3213,23 @@
       "click",
       restartGame
     );
+
+  function updateHighScore() {
+    
+    if (score > highScore) {
+  
+      highScore =
+        score;
+  
+      localStorage.setItem(
+        "pacmanHighScore",
+        highScore
+      );
+  
+      highScoreElement.textContent =
+        highScore;
+    }
+  }
 
 
   function restartGame() {
