@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +18,6 @@
       --green-light: #39d353;
       --yellow: #ffd700;
       --danger: #f85149;
-      --purple: #a371f7;
     }
 
     * {
@@ -29,6 +27,7 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       background: var(--background);
       color: var(--text);
 
@@ -48,7 +47,7 @@
     }
 
     .page {
-      width: min(1200px, 100%);
+      width: min(1700px, 100%);
       text-align: center;
     }
 
@@ -61,7 +60,6 @@
       color: var(--muted);
       margin-top: 12px;
       margin-bottom: 30px;
-      font-size: 1.05rem;
     }
 
     .game-panel {
@@ -82,9 +80,7 @@
       font-family: monospace;
       font-weight: 600;
 
-      margin-bottom: 16px;
-
-      color: var(--text);
+      margin-bottom: 20px;
     }
 
     .terminal-title span {
@@ -97,20 +93,22 @@
       align-items: center;
       flex-wrap: wrap;
 
-      gap: 10px;
+      gap: 14px;
 
-      margin-bottom: 16px;
+      margin-bottom: 25px;
 
       font-family: monospace;
     }
 
     .hud-box {
+      min-width: 160px;
+
       border: 1px solid var(--border);
       background: var(--background);
 
-      border-radius: 6px;
+      border-radius: 8px;
 
-      padding: 8px 14px;
+      padding: 12px 18px;
     }
 
     .hud strong {
@@ -122,33 +120,31 @@
     }
 
     .canvas-wrapper {
-      position: relative;
       overflow-x: auto;
-      padding: 10px 0;
+
+      border-radius: 10px;
+
+      background: #090c10;
+
+      padding: 20px 0;
     }
 
     canvas {
       display: block;
 
-      max-width: 100%;
-      height: auto;
-
       margin: 0 auto;
 
-      border-radius: 8px;
-
-      background: var(--background);
+      max-width: 100%;
+      height: auto;
 
       image-rendering: pixelated;
     }
 
     .message {
-      min-height: 34px;
-
-      margin-top: 12px;
+      min-height: 32px;
+      margin-top: 18px;
 
       font-family: monospace;
-      font-size: 1rem;
     }
 
     .message.game-over {
@@ -162,41 +158,41 @@
     }
 
     .instructions {
-      margin: 20px 0 10px;
+      margin-top: 15px;
 
       color: var(--muted);
 
       font-family: monospace;
-      font-size: 0.9rem;
-    }
-
-    .keyboard {
-      margin-top: 10px;
     }
 
     kbd {
+      padding: 4px 8px;
+
+      border-radius: 5px;
+
       background: #21262d;
 
       border: 1px solid var(--border);
       border-bottom-width: 2px;
+    }
 
-      border-radius: 5px;
+    .legend {
+      margin-top: 12px;
 
-      padding: 4px 8px;
-
-      color: var(--text);
+      color: var(--muted);
 
       font-family: monospace;
+      font-size: 0.85rem;
     }
 
     .actions {
-      margin-top: 20px;
-
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+
       gap: 12px;
 
-      flex-wrap: wrap;
+      margin-top: 22px;
     }
 
     button,
@@ -214,16 +210,11 @@
 
       cursor: pointer;
       text-decoration: none;
-
-      transition:
-        transform 0.15s ease,
-        background 0.15s ease;
     }
 
     button:hover,
     .button:hover {
       background: #2ea043;
-      transform: translateY(-1px);
     }
 
     .secondary {
@@ -238,9 +229,7 @@
     .mobile-controls {
       display: none;
 
-      margin-top: 25px;
-
-      user-select: none;
+      margin-top: 22px;
     }
 
     .control-grid {
@@ -269,7 +258,6 @@
 
     .up {
       grid-column: 2;
-      grid-row: 1;
     }
 
     .left {
@@ -287,47 +275,25 @@
       grid-row: 2;
     }
 
-    .legend {
-      margin-top: 16px;
-
-      color: var(--muted);
-
-      font-family: monospace;
-      font-size: 0.82rem;
-    }
-
     .footer {
-      margin-top: 25px;
+      margin-top: 20px;
 
       color: var(--muted);
-      font-size: 0.9rem;
-    }
 
-    .footer a {
-      color: var(--blue);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 768px) {
-
-      body {
-        padding: 15px 8px;
-      }
-
-      .game-panel {
-        padding: 12px;
-      }
-
       .mobile-controls {
         display: block;
       }
 
       .keyboard {
         display: none;
+      }
+
+      .game-panel {
+        padding: 12px;
       }
     }
   </style>
@@ -377,8 +343,8 @@
 
       <canvas
         id="game"
-        width="1060"
-        height="280"
+        width="1590"
+        height="390"
       ></canvas>
 
     </div>
@@ -417,33 +383,13 @@
 
       <div class="control-grid">
 
-        <button
-          class="direction up"
-          data-direction="up"
-        >
-          ↑
-        </button>
+        <button class="direction up" data-direction="up">↑</button>
 
-        <button
-          class="direction left"
-          data-direction="left"
-        >
-          ←
-        </button>
+        <button class="direction left" data-direction="left">←</button>
 
-        <button
-          class="direction down"
-          data-direction="down"
-        >
-          ↓
-        </button>
+        <button class="direction down" data-direction="down">↓</button>
 
-        <button
-          class="direction right"
-          data-direction="right"
-        >
-          →
-        </button>
+        <button class="direction right" data-direction="right">→</button>
 
       </div>
 
@@ -474,18 +420,17 @@
   </section>
 
   <div class="footer">
-    Built with JavaScript · Canvas · Web Audio API · GitHub Pages
+    Built with JavaScript · Canvas · BFS Pathfinding · Web Audio API · GitHub Pages
   </div>
 
 </div>
 
+
 <script>
 
-  /*
-   * =========================================================
-   * Silvia's Contribution Pac-Man
-   * =========================================================
-   */
+  /* =====================================================
+     DOM
+     ===================================================== */
 
   const canvas =
     document.getElementById("game");
@@ -512,43 +457,38 @@
     document.getElementById("soundToggle");
 
 
-  /*
-   * =========================================================
-   * GAME CONFIGURATION
-   * =========================================================
-   */
+  /* =====================================================
+     GAME CONFIG
+     ===================================================== */
 
   const COLS = 53;
   const ROWS = 7;
 
-  const CELL = 20;
+  const CELL = 30;
 
   const OFFSET_X = 0;
-  const OFFSET_Y = 60;
+  const OFFSET_Y = 90;
 
   canvas.width =
     COLS * CELL;
 
-  canvas.height = 260;
+  canvas.height =
+    390;
 
 
-  /*
-   * Power mode
-   */
+  const PLAYER_SPEED =
+    145;
 
-  const FRIGHTENED_DURATION = 7000;
+  const GHOST_SPEED =
+    280;
+
+  const FRIGHTENED_GHOST_SPEED =
+    360;
 
 
-  /*
-   * Ghost combo
-   *
-   * Classic sequence:
-   *
-   * 200
-   * 400
-   * 800
-   * 1600
-   */
+  const FRIGHTENED_DURATION =
+    7000;
+
 
   const GHOST_COMBO_POINTS = [
     200,
@@ -558,20 +498,16 @@
   ];
 
 
-  /*
-   * Bonus fruit
-   */
+  const FRUIT_SCORE =
+    500;
 
-  const FRUIT_SCORE = 500;
-
-  const FRUIT_DURATION = 9000;
+  const FRUIT_DURATION =
+    9000;
 
 
-  /*
-   * =========================================================
-   * GAME STATE
-   * =========================================================
-   */
+  /* =====================================================
+     GAME STATE
+     ===================================================== */
 
   let maze = [];
 
@@ -579,57 +515,35 @@
 
   let powerPellets = [];
 
+
   let score = 0;
 
   let lives = 3;
+
 
   let started = false;
 
   let gameOver = false;
 
 
-  /*
-   * Contributions
-   */
-
   let totalPellets = 0;
 
   let eatenPellets = 0;
 
 
-  /*
-   * Power mode
-   */
+  let frightenedMode =
+    false;
 
-  let frightenedMode = false;
+  let frightenedUntil =
+    0;
 
-  let frightenedUntil = 0;
-
-  let ghostCombo = 0;
-
-
-  /*
-   * Fruit
-   */
-
-  let fruit = {
-    active: false,
-    col: 0,
-    row: 0,
-    expiresAt: 0
-  };
-
-  let fruitSpawnStages = [
-    false,
-    false
-  ];
+  let ghostCombo =
+    0;
 
 
-  /*
-   * Animation
-   */
+  let animationFrame =
+    null;
 
-  let animationFrame = null;
 
   let playerTimer = 0;
 
@@ -638,11 +552,32 @@
   let lastTime = 0;
 
 
-  /*
-   * =========================================================
-   * PLAYER
-   * =========================================================
-   */
+  /* =====================================================
+     FRUIT
+     ===================================================== */
+
+  let fruit = {
+
+    active: false,
+
+    col: 0,
+
+    row: 0,
+
+    expiresAt: 0
+
+  };
+
+
+  let fruitSpawnStages = [
+    false,
+    false
+  ];
+
+
+  /* =====================================================
+     PLAYER
+     ===================================================== */
 
   const player = {
 
@@ -650,42 +585,63 @@
 
     row: 3,
 
-    direction: "right",
+    direction:
+      "right",
 
-    nextDirection: "right"
+    nextDirection:
+      "right"
+
   };
 
 
-  /*
-   * =========================================================
-   * GHOSTS
-   * =========================================================
-   */
+  /* =====================================================
+     GHOSTS
+     ===================================================== */
 
   const ghosts = [
 
     {
+      name: "Blinky",
+
       col: 26,
       row: 2,
-      color: "#f85149"
+
+      color: "#f85149",
+
+      direction: "left"
     },
 
     {
+      name: "Pinky",
+
       col: 27,
       row: 4,
-      color: "#db61a2"
+
+      color: "#db61a2",
+
+      direction: "right"
     },
 
     {
+      name: "Inky",
+
       col: 29,
       row: 2,
-      color: "#58a6ff"
+
+      color: "#58a6ff",
+
+      direction: "up"
     },
 
     {
+      name: "Clyde",
+
       col: 30,
       row: 4,
-      color: "#ff9f43"
+
+      color: "#ff9f43",
+
+      direction: "down"
     }
 
   ];
@@ -694,24 +650,35 @@
   const ghostStarts =
     ghosts.map(
       ghost => ({
+
         col: ghost.col,
-        row: ghost.row
+
+        row: ghost.row,
+
+        direction:
+          ghost.direction
+
       })
     );
 
 
-  /*
-   * =========================================================
-   * AUDIO ENGINE
-   * =========================================================
-   */
+  /* =====================================================
+     AUDIO
+     ===================================================== */
 
-  let audioContext = null;
+  let audioContext =
+    null;
 
-  let soundEnabled = true;
+  let soundEnabled =
+    true;
 
 
   function initAudio() {
+
+    if (!soundEnabled) {
+      return;
+    }
+
 
     if (!audioContext) {
 
@@ -722,9 +689,12 @@
         )();
     }
 
+
     if (
-      audioContext.state === "suspended"
+      audioContext.state ===
+      "suspended"
     ) {
+
       audioContext.resume();
     }
   }
@@ -742,51 +712,68 @@
       return;
     }
 
+
     initAudio();
+
 
     const oscillator =
       audioContext.createOscillator();
 
+
     const gain =
       audioContext.createGain();
 
+
     const start =
-      audioContext.currentTime + delay;
+      audioContext.currentTime +
+      delay;
 
-    oscillator.type = type;
 
-    oscillator.frequency.setValueAtTime(
-      frequency,
-      start
+    oscillator.type =
+      type;
+
+
+    oscillator.frequency
+      .setValueAtTime(
+        frequency,
+        start
+      );
+
+
+    gain.gain
+      .setValueAtTime(
+        volume,
+        start
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        0.0001,
+        start + duration
+      );
+
+
+    oscillator.connect(
+      gain
     );
 
-    gain.gain.setValueAtTime(
-      volume,
-      start
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      start + duration
-    );
-
-    oscillator.connect(gain);
 
     gain.connect(
       audioContext.destination
     );
 
-    oscillator.start(start);
+
+    oscillator.start(
+      start
+    );
+
 
     oscillator.stop(
       start + duration
     );
   }
 
-
-  /*
-   * Arcade-like synthesized sounds.
-   */
 
   function soundPellet() {
 
@@ -803,9 +790,7 @@
 
     tone(
       300,
-      0.1,
-      "square",
-      0.05
+      0.1
     );
 
     tone(
@@ -830,9 +815,7 @@
 
     tone(
       900,
-      0.06,
-      "square",
-      0.05
+      0.06
     );
 
     tone(
@@ -855,19 +838,11 @@
     );
 
     tone(
-      900,
-      0.08,
+      1000,
+      0.1,
       "sine",
       0.05,
-      0.07
-    );
-
-    tone(
-      1200,
-      0.12,
-      "sine",
-      0.05,
-      0.14
+      0.08
     );
   }
 
@@ -877,24 +852,15 @@
     tone(
       300,
       0.14,
-      "sawtooth",
-      0.05
+      "sawtooth"
     );
 
     tone(
-      220,
-      0.18,
+      180,
+      0.22,
       "sawtooth",
       0.05,
-      0.12
-    );
-
-    tone(
-      150,
-      0.25,
-      "sawtooth",
-      0.05,
-      0.25
+      0.14
     );
   }
 
@@ -943,24 +909,24 @@
   }
 
 
-  /*
-   * =========================================================
-   * MAZE
-   * =========================================================
-   */
+  /* =====================================================
+     MAZE
+     ===================================================== */
 
   function generateMaze() {
 
     maze =
       Array.from(
-        { length: ROWS },
+        {
+          length: ROWS
+        },
         () =>
           Array(COLS).fill(0)
       );
 
 
     /*
-     * Vertical structures
+     * Vertical barriers
      */
 
     for (
@@ -975,7 +941,9 @@
         row++
       ) {
 
-        if (row !== 3) {
+        if (
+          row !== 3
+        ) {
 
           maze[row][col] = 1;
         }
@@ -984,7 +952,7 @@
 
 
     /*
-     * Upper structures
+     * Upper horizontal fragments
      */
 
     for (
@@ -995,16 +963,20 @@
 
       const row = 2;
 
+
       for (
         let x = col;
-        x < Math.min(
-          col + 4,
-          COLS
-        );
+        x <
+          Math.min(
+            col + 4,
+            COLS
+          );
         x++
       ) {
 
-        if (x !== col + 2) {
+        if (
+          x !== col + 2
+        ) {
 
           maze[row][x] = 1;
         }
@@ -1013,7 +985,7 @@
 
 
     /*
-     * Lower structures
+     * Lower horizontal fragments
      */
 
     for (
@@ -1024,16 +996,20 @@
 
       const row = 5;
 
+
       for (
         let x = col;
-        x < Math.min(
-          col + 4,
-          COLS
-        );
+        x <
+          Math.min(
+            col + 4,
+            COLS
+          );
         x++
       ) {
 
-        if (x !== col + 1) {
+        if (
+          x !== col + 1
+        ) {
 
           maze[row][x] = 1;
         }
@@ -1042,31 +1018,40 @@
 
 
     /*
-     * Spawn points must remain free.
+     * Keep spawn cells free.
      */
 
-    maze[player.row][player.col] = 0;
+    maze[
+      player.row
+    ][
+      player.col
+    ] = 0;
+
 
     ghosts.forEach(
       ghost => {
 
-        maze[ghost.row][ghost.col] = 0;
+        maze[
+          ghost.row
+        ][
+          ghost.col
+        ] = 0;
       }
     );
   }
 
 
-  /*
-   * =========================================================
-   * CONTRIBUTIONS / PELLETS
-   * =========================================================
-   */
+  /* =====================================================
+     PELLETS
+     ===================================================== */
 
   function generatePellets() {
 
     pellets =
       Array.from(
-        { length: ROWS },
+        {
+          length: ROWS
+        },
         () =>
           Array(COLS).fill(false)
       );
@@ -1074,7 +1059,9 @@
 
     powerPellets =
       Array.from(
-        { length: ROWS },
+        {
+          length: ROWS
+        },
         () =>
           Array(COLS).fill(false)
       );
@@ -1100,7 +1087,8 @@
           Math.random() > 0.52
         ) {
 
-          pellets[row][col] = true;
+          pellets[row][col] =
+            true;
 
           count++;
         }
@@ -1108,13 +1096,12 @@
     }
 
 
-    pellets[player.row][player.col] =
-      false;
+    pellets[
+      player.row
+    ][
+      player.col
+    ] = false;
 
-
-    /*
-     * Power Pellets
-     */
 
     const powerPositions = [
 
@@ -1180,25 +1167,28 @@
     );
 
 
-    totalPellets = count;
+    totalPellets =
+      count;
 
-    eatenPellets = 0;
+
+    eatenPellets =
+      0;
+
 
     remainingElement.textContent =
       count;
   }
 
 
-  /*
-   * =========================================================
-   * DRAWING
-   * =========================================================
-   */
+  /* =====================================================
+     DRAW
+     ===================================================== */
 
   function drawBackground() {
 
     ctx.fillStyle =
-      "#0d1117";
+      "#090c10";
+
 
     ctx.fillRect(
       0,
@@ -1231,7 +1221,8 @@
 
 
     ctx.font =
-      "11px monospace";
+      "16px monospace";
+
 
     ctx.fillStyle =
       "#8b949e";
@@ -1248,13 +1239,14 @@
             )
           ) *
           (
-            canvas.width - 45
+            canvas.width - 50
           );
+
 
         ctx.fillText(
           month,
           x,
-          25
+          35
         );
       }
     );
@@ -1279,21 +1271,18 @@
           OFFSET_X +
           col * CELL;
 
+
         const y =
           OFFSET_Y +
           row * CELL;
 
-
-        /*
-         * Walls
-         */
 
         if (
           maze[row][col] === 1
         ) {
 
           ctx.fillStyle =
-            "#30363d";
+            "#3a3f45";
 
         } else {
 
@@ -1303,15 +1292,15 @@
 
 
         ctx.fillRect(
-          x + 2,
-          y + 2,
-          CELL - 4,
-          CELL - 4
+          x + 3,
+          y + 3,
+          CELL - 6,
+          CELL - 6
         );
 
 
         /*
-         * Contributions
+         * Normal contribution
          */
 
         if (
@@ -1321,40 +1310,50 @@
           ctx.fillStyle =
             "#39d353";
 
+
           ctx.beginPath();
+
 
           ctx.arc(
             x + CELL / 2,
             y + CELL / 2,
-            3,
+            5,
             0,
             Math.PI * 2
           );
+
 
           ctx.fill();
         }
 
 
         /*
-         * Power pellets
+         * Power Pellet
          */
 
         if (
-          powerPellets[row][col]
+          powerPellets[
+            row
+          ][
+            col
+          ]
         ) {
 
           ctx.fillStyle =
             "#f0f6fc";
 
+
           ctx.beginPath();
+
 
           ctx.arc(
             x + CELL / 2,
             y + CELL / 2,
-            6,
+            9,
             0,
             Math.PI * 2
           );
+
 
           ctx.fill();
         }
@@ -1369,6 +1368,7 @@
       OFFSET_X +
       player.col * CELL +
       CELL / 2;
+
 
     const y =
       OFFSET_Y +
@@ -1410,10 +1410,12 @@
 
     ctx.save();
 
+
     ctx.translate(
       x,
       y
     );
+
 
     ctx.rotate(
       rotation
@@ -1426,22 +1428,27 @@
 
     ctx.beginPath();
 
+
     ctx.moveTo(
       0,
       0
     );
 
+
     ctx.arc(
       0,
       0,
-      8,
-      0.25 * Math.PI,
-      1.75 * Math.PI
+      12,
+      0.22 * Math.PI,
+      1.78 * Math.PI
     );
+
 
     ctx.closePath();
 
+
     ctx.fill();
+
 
     ctx.restore();
   }
@@ -1456,15 +1463,12 @@
       ghost.col * CELL +
       CELL / 2;
 
+
     const y =
       OFFSET_Y +
       ghost.row * CELL +
       CELL / 2;
 
-
-    /*
-     * Vulnerable mode
-     */
 
     if (
       frightenedMode
@@ -1475,15 +1479,11 @@
         performance.now();
 
 
-      /*
-       * Flash white during last
-       * two seconds.
-       */
-
       if (
         remaining < 2000 &&
         Math.floor(
-          performance.now() / 200
+          performance.now() /
+          200
         ) % 2 === 0
       ) {
 
@@ -1503,46 +1503,50 @@
     }
 
 
-    /*
-     * Body
-     */
-
     ctx.beginPath();
+
 
     ctx.arc(
       x,
-      y - 1,
-      7,
+      y - 2,
+      11,
       Math.PI,
       0
     );
 
-    ctx.lineTo(
-      x + 7,
-      y + 7
-    );
 
     ctx.lineTo(
-      x + 3,
-      y + 4
+      x + 11,
+      y + 10
     );
+
+
+    ctx.lineTo(
+      x + 5,
+      y + 6
+    );
+
 
     ctx.lineTo(
       x,
-      y + 7
+      y + 10
     );
 
-    ctx.lineTo(
-      x - 3,
-      y + 4
-    );
 
     ctx.lineTo(
-      x - 7,
-      y + 7
+      x - 5,
+      y + 6
     );
+
+
+    ctx.lineTo(
+      x - 11,
+      y + 10
+    );
+
 
     ctx.closePath();
+
 
     ctx.fill();
 
@@ -1552,66 +1556,71 @@
      */
 
     ctx.fillStyle =
-      "white";
+      "#ffffff";
+
 
     ctx.beginPath();
 
+
     ctx.arc(
-      x - 3,
-      y - 1,
-      2,
+      x - 4,
+      y - 2,
+      3,
       0,
       Math.PI * 2
     );
 
+
     ctx.arc(
-      x + 3,
-      y - 1,
-      2,
+      x + 4,
+      y - 2,
+      3,
       0,
       Math.PI * 2
     );
+
 
     ctx.fill();
 
 
     ctx.fillStyle =
-      frightenedMode
-        ? "#ffffff"
-        : "#0969da";
+      "#0969da";
 
 
     ctx.beginPath();
 
+
     ctx.arc(
-      x - 3,
-      y - 1,
-      1,
+      x - 4,
+      y - 2,
+      1.5,
       0,
       Math.PI * 2
     );
 
+
     ctx.arc(
-      x + 3,
-      y - 1,
-      1,
+      x + 4,
+      y - 2,
+      1.5,
       0,
       Math.PI * 2
     );
+
 
     ctx.fill();
   }
 
 
-  /*
-   * =========================================================
-   * BONUS FRUIT
-   * =========================================================
-   */
+  /* =====================================================
+     FRUIT
+     ===================================================== */
 
   function drawFruit() {
 
-    if (!fruit.active) {
+    if (
+      !fruit.active
+    ) {
       return;
     }
 
@@ -1621,74 +1630,68 @@
       fruit.col * CELL +
       CELL / 2;
 
+
     const y =
       OFFSET_Y +
       fruit.row * CELL +
       CELL / 2;
 
 
-    /*
-     * Cherry 1
-     */
-
     ctx.fillStyle =
       "#f85149";
 
+
     ctx.beginPath();
 
+
     ctx.arc(
-      x - 4,
-      y + 2,
-      5,
+      x - 5,
+      y + 3,
+      7,
       0,
       Math.PI * 2
     );
 
-    ctx.fill();
-
-
-    /*
-     * Cherry 2
-     */
-
-    ctx.beginPath();
 
     ctx.arc(
-      x + 4,
+      x + 5,
       y + 4,
-      5,
+      7,
       0,
       Math.PI * 2
     );
 
+
     ctx.fill();
 
-
-    /*
-     * Stem
-     */
 
     ctx.strokeStyle =
       "#39d353";
 
+
     ctx.lineWidth = 2;
+
 
     ctx.beginPath();
 
+
     ctx.moveTo(
-      x - 4,
-      y - 2
+      x - 5,
+      y - 3
     );
+
 
     ctx.lineTo(
       x,
-      y - 9
+      y - 12
     );
 
+
     ctx.lineTo(
-      x + 4,
-      y - 1
+      x + 5,
+      y - 3
     );
+
 
     ctx.stroke();
   }
@@ -1696,7 +1699,8 @@
 
   function findRandomFreeCell() {
 
-    const candidates = [];
+    const candidates =
+      [];
 
 
     for (
@@ -1713,8 +1717,8 @@
 
         if (
           maze[row][col] === 0 &&
-          !powerPellets[row][col] &&
-          !pellets[row][col]
+          !pellets[row][col] &&
+          !powerPellets[row][col]
         ) {
 
           candidates.push({
@@ -1752,21 +1756,21 @@
       findRandomFreeCell();
 
 
-    fruit = {
+    fruit.active =
+      true;
 
-      active: true,
 
-      col:
-        position.col,
+    fruit.col =
+      position.col;
 
-      row:
-        position.row,
 
-      expiresAt:
-        performance.now() +
-        FRUIT_DURATION
+    fruit.row =
+      position.row;
 
-    };
+
+    fruit.expiresAt =
+      performance.now() +
+      FRUIT_DURATION;
 
 
     messageElement.textContent =
@@ -1779,7 +1783,7 @@
     if (
       fruit.active &&
       performance.now() >=
-      fruit.expiresAt
+        fruit.expiresAt
     ) {
 
       fruit.active =
@@ -1802,10 +1806,6 @@
       totalPellets;
 
 
-    /*
-     * Fruit at 30%
-     */
-
     if (
       progress >= 0.30 &&
       !fruitSpawnStages[0]
@@ -1814,13 +1814,10 @@
       fruitSpawnStages[0] =
         true;
 
+
       spawnFruit();
     }
 
-
-    /*
-     * Fruit at 70%
-     */
 
     if (
       progress >= 0.70 &&
@@ -1829,6 +1826,7 @@
 
       fruitSpawnStages[1] =
         true;
+
 
       spawnFruit();
     }
@@ -1870,12 +1868,6 @@
   }
 
 
-  /*
-   * =========================================================
-   * MASTER DRAW
-   * =========================================================
-   */
-
   function draw() {
 
     drawBackground();
@@ -1894,55 +1886,69 @@
   }
 
 
-  /*
-   * =========================================================
-   * MOVEMENT
-   * =========================================================
-   */
+  /* =====================================================
+     MOVEMENT HELPERS
+     ===================================================== */
 
   function directionOffset(
     direction
   ) {
 
-    switch (
+    const offsets = {
+
+      up: {
+        col: 0,
+        row: -1
+      },
+
+      down: {
+        col: 0,
+        row: 1
+      },
+
+      left: {
+        col: -1,
+        row: 0
+      },
+
+      right: {
+        col: 1,
+        row: 0
+      }
+
+    };
+
+
+    return offsets[
       direction
-    ) {
-
-      case "up":
-
-        return {
-          col: 0,
-          row: -1
-        };
-
-
-      case "down":
-
-        return {
-          col: 0,
-          row: 1
-        };
-
-
-      case "left":
-
-        return {
-          col: -1,
-          row: 0
-        };
-
-
-      case "right":
-
-        return {
-          col: 1,
-          row: 0
-        };
-    }
+    ];
   }
 
 
-  function canMove(
+  function oppositeDirection(
+    direction
+  ) {
+
+    const opposites = {
+
+      up: "down",
+
+      down: "up",
+
+      left: "right",
+
+      right: "left"
+
+    };
+
+
+    return opposites[
+      direction
+    ];
+  }
+
+
+  function getNextPosition(
     col,
     row,
     direction
@@ -1985,9 +1991,35 @@
     }
 
 
+    return {
+
+      col:
+        nextCol,
+
+      row:
+        nextRow
+
+    };
+  }
+
+
+  function canMove(
+    col,
+    row,
+    direction
+  ) {
+
+    const next =
+      getNextPosition(
+        col,
+        row,
+        direction
+      );
+
+
     if (
-      nextRow < 0 ||
-      nextRow >= ROWS
+      next.row < 0 ||
+      next.row >= ROWS
     ) {
 
       return false;
@@ -1996,9 +2028,9 @@
 
     return (
       maze[
-        nextRow
+        next.row
       ][
-        nextCol
+        next.col
       ] === 0
     );
   }
@@ -2009,36 +2041,26 @@
     direction
   ) {
 
-    const offset =
-      directionOffset(
+    const next =
+      getNextPosition(
+        entity.col,
+        entity.row,
         direction
       );
 
 
-    entity.col +=
-      offset.col;
-
-    entity.row +=
-      offset.row;
+    entity.col =
+      next.col;
 
 
-    if (
-      entity.col < 0
-    ) {
-
-      entity.col =
-        COLS - 1;
-    }
-
-
-    if (
-      entity.col >= COLS
-    ) {
-
-      entity.col = 0;
-    }
+    entity.row =
+      next.row;
   }
 
+
+  /* =====================================================
+     PLAYER
+     ===================================================== */
 
   function movePlayer() {
 
@@ -2076,11 +2098,9 @@
   }
 
 
-  /*
-   * =========================================================
-   * EATING
-   * =========================================================
-   */
+  /* =====================================================
+     PELLET LOGIC
+     ===================================================== */
 
   function eatPellet() {
 
@@ -2104,6 +2124,7 @@
 
 
       score += 10;
+
 
       eatenPellets++;
 
@@ -2133,7 +2154,8 @@
         remaining === 0
       ) {
 
-        gameOver = true;
+        gameOver =
+          true;
 
 
         messageElement.textContent =
@@ -2177,12 +2199,8 @@
         FRIGHTENED_DURATION;
 
 
-      /*
-       * Reset combo every time
-       * a new Power Pellet starts.
-       */
-
-      ghostCombo = 0;
+      ghostCombo =
+        0;
 
 
       messageElement.textContent =
@@ -2194,17 +2212,15 @@
   }
 
 
-  /*
-   * =========================================================
-   * GHOST AI
-   * =========================================================
-   */
+  /* =====================================================
+     GHOST AI
+     ===================================================== */
 
-  function possibleDirections(
-    entity
+  function getGhostDirections(
+    ghost
   ) {
 
-    return [
+    let directions = [
 
       "up",
       "down",
@@ -2215,36 +2231,243 @@
       direction =>
 
         canMove(
-          entity.col,
-          entity.row,
+          ghost.col,
+          ghost.row,
           direction
         )
     );
+
+
+    /*
+     * Prevent constant:
+     *
+     * ← → ← → ← →
+     */
+
+    if (
+      directions.length > 1 &&
+      ghost.direction
+    ) {
+
+      const reverse =
+        oppositeDirection(
+          ghost.direction
+        );
+
+
+      directions =
+        directions.filter(
+          direction =>
+            direction !==
+            reverse
+        );
+    }
+
+
+    /*
+     * If filtering left no direction,
+     * allow reverse movement.
+     */
+
+    if (
+      directions.length === 0
+    ) {
+
+      directions = [
+
+        "up",
+        "down",
+        "left",
+        "right"
+
+      ].filter(
+        direction =>
+
+          canMove(
+            ghost.col,
+            ghost.row,
+            direction
+          )
+      );
+    }
+
+
+    return directions;
   }
 
 
-  function projectedPosition(
-    entity,
-    direction
+  /*
+   * BFS shortest-path search.
+   */
+
+  function findPathDirection(
+    ghost,
+    target
   ) {
 
-    const offset =
-      directionOffset(
-        direction
+    const initialDirections =
+      getGhostDirections(
+        ghost
       );
 
 
-    return {
+    if (
+      initialDirections.length === 0
+    ) {
 
-      col:
-        entity.col +
-        offset.col,
+      return null;
+    }
 
-      row:
-        entity.row +
-        offset.row
 
-    };
+    const queue =
+      [];
+
+
+    const visited =
+      new Set();
+
+
+    for (
+      const direction
+      of initialDirections
+    ) {
+
+      const next =
+        getNextPosition(
+          ghost.col,
+          ghost.row,
+          direction
+        );
+
+
+      if (
+        next.row < 0 ||
+        next.row >= ROWS
+      ) {
+        continue;
+      }
+
+
+      queue.push({
+
+        col:
+          next.col,
+
+        row:
+          next.row,
+
+        firstDirection:
+          direction
+
+      });
+    }
+
+
+    while (
+      queue.length > 0
+    ) {
+
+      const current =
+        queue.shift();
+
+
+      const key =
+        `${current.col},${current.row}`;
+
+
+      if (
+        visited.has(key)
+      ) {
+        continue;
+      }
+
+
+      visited.add(key);
+
+
+      if (
+        current.col ===
+          target.col &&
+        current.row ===
+          target.row
+      ) {
+
+        return current
+          .firstDirection;
+      }
+
+
+      const directions = [
+
+        "up",
+        "down",
+        "left",
+        "right"
+
+      ];
+
+
+      for (
+        const direction
+        of directions
+      ) {
+
+        if (
+          !canMove(
+            current.col,
+            current.row,
+            direction
+          )
+        ) {
+          continue;
+        }
+
+
+        const next =
+          getNextPosition(
+            current.col,
+            current.row,
+            direction
+          );
+
+
+        if (
+          next.row < 0 ||
+          next.row >= ROWS
+        ) {
+          continue;
+        }
+
+
+        const nextKey =
+          `${next.col},${next.row}`;
+
+
+        if (
+          !visited.has(
+            nextKey
+          )
+        ) {
+
+          queue.push({
+
+            col:
+              next.col,
+
+            row:
+              next.row,
+
+            firstDirection:
+              current
+                .firstDirection
+
+          });
+        }
+      }
+    }
+
+
+    return null;
   }
 
 
@@ -2253,17 +2476,90 @@
     b
   ) {
 
-    return (
+    let horizontal =
       Math.abs(
         a.col -
         b.col
-      ) +
+      );
 
+
+    /*
+     * Tunnel-aware horizontal distance.
+     */
+
+    horizontal =
+      Math.min(
+        horizontal,
+        COLS - horizontal
+      );
+
+
+    return (
+      horizontal +
       Math.abs(
         a.row -
         b.row
       )
     );
+  }
+
+
+  /*
+   * Frightened ghosts try to maximize
+   * their distance from Pac-Man.
+   */
+
+  function findEscapeDirection(
+    ghost
+  ) {
+
+    const directions =
+      getGhostDirections(
+        ghost
+      );
+
+
+    if (
+      directions.length === 0
+    ) {
+
+      return null;
+    }
+
+
+    return directions
+      .slice()
+      .sort(
+        (a, b) => {
+
+          const posA =
+            getNextPosition(
+              ghost.col,
+              ghost.row,
+              a
+            );
+
+
+          const posB =
+            getNextPosition(
+              ghost.col,
+              ghost.row,
+              b
+            );
+
+
+          return (
+            distance(
+              posB,
+              player
+            ) -
+            distance(
+              posA,
+              player
+            )
+          );
+        }
+      )[0];
   }
 
 
@@ -2273,7 +2569,7 @@
       ghost => {
 
         const directions =
-          possibleDirections(
+          getGhostDirections(
             ghost
           );
 
@@ -2289,8 +2585,9 @@
 
 
         /*
-         * FRIGHTENED:
-         * run away from Pac-Man.
+         * =================================
+         * FRIGHTENED
+         * =================================
          */
 
         if (
@@ -2298,87 +2595,35 @@
         ) {
 
           direction =
-            directions
-              .slice()
-              .sort(
-                (a, b) => {
-
-                  const posA =
-                    projectedPosition(
-                      ghost,
-                      a
-                    );
-
-
-                  const posB =
-                    projectedPosition(
-                      ghost,
-                      b
-                    );
-
-
-                  return (
-                    distance(
-                      posB,
-                      player
-                    ) -
-
-                    distance(
-                      posA,
-                      player
-                    )
-                  );
-                }
-              )[0];
+            findEscapeDirection(
+              ghost
+            );
 
 
         /*
-         * NORMAL:
-         * sometimes chase.
+         * =================================
+         * CHASE
+         * =================================
+         *
+         * 80% intelligent pursuit.
          */
 
         } else if (
           Math.random() <
-          0.45
+          0.80
         ) {
 
           direction =
-            directions
-              .slice()
-              .sort(
-                (a, b) => {
-
-                  const posA =
-                    projectedPosition(
-                      ghost,
-                      a
-                    );
-
-
-                  const posB =
-                    projectedPosition(
-                      ghost,
-                      b
-                    );
-
-
-                  return (
-                    distance(
-                      posA,
-                      player
-                    ) -
-
-                    distance(
-                      posB,
-                      player
-                    )
-                  );
-                }
-              )[0];
+            findPathDirection(
+              ghost,
+              player
+            );
 
 
         /*
-         * Random wandering.
+         * =================================
+         * SCATTER
+         * =================================
          */
 
         } else {
@@ -2393,6 +2638,31 @@
         }
 
 
+        /*
+         * Fallback.
+         */
+
+        if (
+          !direction ||
+          !directions.includes(
+            direction
+          )
+        ) {
+
+          direction =
+            directions[
+              Math.floor(
+                Math.random() *
+                directions.length
+              )
+            ];
+        }
+
+
+        ghost.direction =
+          direction;
+
+
         moveEntity(
           ghost,
           direction
@@ -2402,11 +2672,9 @@
   }
 
 
-  /*
-   * =========================================================
-   * COLLISIONS
-   * =========================================================
-   */
+  /* =====================================================
+     COLLISIONS
+     ===================================================== */
 
   function checkGhostCollision() {
 
@@ -2425,6 +2693,7 @@
     if (
       ghostIndex === -1
     ) {
+
       return;
     }
 
@@ -2436,7 +2705,7 @@
 
 
     /*
-     * Ghost is vulnerable.
+     * Vulnerable ghost.
      */
 
     if (
@@ -2456,26 +2725,23 @@
         ];
 
 
-      score += points;
+      ghostCombo++;
+
+
+      score +=
+        points;
 
 
       scoreElement.textContent =
         score;
 
 
-      ghostCombo++;
-
-
       messageElement.textContent =
-        `Ghost eaten! +${points} points 👻`;
+        `${ghost.name} eaten! +${points} points 👻`;
 
 
       soundGhost();
 
-
-      /*
-       * Return ghost to spawn.
-       */
 
       ghost.col =
         ghostStarts[
@@ -2489,12 +2755,18 @@
         ].row;
 
 
+      ghost.direction =
+        ghostStarts[
+          ghostIndex
+        ].direction;
+
+
       return;
     }
 
 
     /*
-     * Normal collision.
+     * Pac-Man loses a life.
      */
 
     lives--;
@@ -2537,11 +2809,9 @@
   }
 
 
-  /*
-   * =========================================================
-   * POWER MODE
-   * =========================================================
-   */
+  /* =====================================================
+     POWER MODE
+     ===================================================== */
 
   function updateFrightenedMode() {
 
@@ -2560,7 +2830,8 @@
 
         powerStatusElement.textContent =
           `${(
-            remaining / 1000
+            remaining /
+            1000
           ).toFixed(1)}s`;
 
       } else {
@@ -2593,11 +2864,9 @@
   }
 
 
-  /*
-   * =========================================================
-   * LIVES
-   * =========================================================
-   */
+  /* =====================================================
+     RESET
+     ===================================================== */
 
   function updateLives() {
 
@@ -2611,20 +2880,19 @@
   }
 
 
-  /*
-   * =========================================================
-   * RESET POSITIONS
-   * =========================================================
-   */
-
   function resetPositions() {
 
-    player.col = 1;
+    player.col =
+      1;
 
-    player.row = 3;
+
+    player.row =
+      3;
+
 
     player.direction =
       "right";
+
 
     player.nextDirection =
       "right";
@@ -2646,16 +2914,20 @@
           ghostStarts[
             index
           ].row;
+
+
+        ghost.direction =
+          ghostStarts[
+            index
+          ].direction;
       }
     );
   }
 
 
-  /*
-   * =========================================================
-   * GAME LOOP
-   * =========================================================
-   */
+  /* =====================================================
+     LOOP
+     ===================================================== */
 
   function gameLoop(
     time
@@ -2705,13 +2977,9 @@
       delta;
 
 
-    /*
-     * Player movement
-     */
-
     if (
       playerTimer >
-      130
+      PLAYER_SPEED
     ) {
 
       movePlayer();
@@ -2724,17 +2992,15 @@
     }
 
 
-    /*
-     * Ghost movement
-     */
+    const currentGhostSpeed =
+      frightenedMode
+        ? FRIGHTENED_GHOST_SPEED
+        : GHOST_SPEED;
+
 
     if (
       ghostTimer >
-      (
-        frightenedMode
-          ? 330
-          : 260
-      )
+      currentGhostSpeed
     ) {
 
       moveGhosts();
@@ -2761,11 +3027,9 @@
   }
 
 
-  /*
-   * =========================================================
-   * CONTROLS
-   * =========================================================
-   */
+  /* =====================================================
+     CONTROLS
+     ===================================================== */
 
   function setDirection(
     direction
@@ -2789,7 +3053,8 @@
       !started
     ) {
 
-      started = true;
+      started =
+        true;
 
 
       messageElement.textContent =
@@ -2863,7 +3128,8 @@
           () => {
 
             setDirection(
-              button.dataset.direction
+              button.dataset
+                .direction
             );
           }
         );
@@ -2871,11 +3137,9 @@
     );
 
 
-  /*
-   * =========================================================
-   * SOUND TOGGLE
-   * =========================================================
-   */
+  /* =====================================================
+     SOUND BUTTON
+     ===================================================== */
 
   soundToggle.addEventListener(
     "click",
@@ -2897,6 +3161,7 @@
 
         initAudio();
 
+
         tone(
           650,
           0.08,
@@ -2908,11 +3173,9 @@
   );
 
 
-  /*
-   * =========================================================
-   * RESTART
-   * =========================================================
-   */
+  /* =====================================================
+     RESTART
+     ===================================================== */
 
   document
     .getElementById(
@@ -2931,9 +3194,12 @@
     lives = 3;
 
 
-    started = false;
+    started =
+      false;
 
-    gameOver = false;
+
+    gameOver =
+      false;
 
 
     frightenedMode =
@@ -2944,7 +3210,8 @@
       0;
 
 
-    ghostCombo = 0;
+    ghostCombo =
+      0;
 
 
     fruit = {
@@ -3020,11 +3287,9 @@
   }
 
 
-  /*
-   * =========================================================
-   * START
-   * =========================================================
-   */
+  /* =====================================================
+     START
+     ===================================================== */
 
   restartGame();
 
@@ -3032,4 +3297,3 @@
 
 </body>
 </html>
-```
