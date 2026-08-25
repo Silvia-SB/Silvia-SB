@@ -240,32 +240,74 @@
 
     .mobile-controls {
       display: none;
-
-      margin-top: 22px;
+      margin-top: 24px;
+    
+      user-select: none;
+      -webkit-user-select: none;
+    
+      touch-action: manipulation;
     }
-
+    
     .control-grid {
       display: grid;
-
-      grid-template-columns: repeat(3, 55px);
-      grid-template-rows: repeat(2, 55px);
-
-      gap: 6px;
-
+    
+      grid-template-columns: repeat(3, 64px);
+      grid-template-rows: repeat(2, 64px);
+    
+      gap: 10px;
+    
       justify-content: center;
+      align-items: center;
     }
-
+    
     .direction {
-      width: 55px;
-      height: 55px;
-
+      width: 64px;
+      height: 64px;
+    
       padding: 0;
-
-      font-size: 1.4rem;
-
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    
+      font-size: 1.65rem;
+      font-weight: 700;
+    
+      color: #f0f6fc;
+    
       background: #21262d;
-
+    
       border: 1px solid var(--border);
+      border-radius: 12px;
+    
+      box-shadow:
+        0 3px 0 #0d1117,
+        0 0 0 1px rgba(240, 246, 252, 0.03);
+    
+      cursor: pointer;
+    
+      touch-action: manipulation;
+    
+      transition:
+        transform 0.08s ease,
+        background 0.08s ease,
+        border-color 0.08s ease;
+    }
+    
+    .direction:hover {
+      background: #30363d;
+      border-color: #484f58;
+    }
+    
+    .direction:active,
+    .direction.active {
+      transform: translateY(2px) scale(0.94);
+    
+      background: #238636;
+      border-color: #2ea043;
+    
+      box-shadow:
+        0 1px 0 #0d1117;
     }
 
     .up {
@@ -296,16 +338,33 @@
     }
 
     @media (max-width: 768px) {
+      body {
+        padding: 15px 8px;
+      }
+    
+      .game-panel {
+        padding: 12px;
+      }
+    
       .mobile-controls {
         display: block;
       }
-
+    
       .keyboard {
         display: none;
       }
-
-      .game-panel {
-        padding: 12px;
+    
+      .control-grid {
+        grid-template-columns: repeat(3, 68px);
+        grid-template-rows: repeat(2, 68px);
+        gap: 12px;
+      }
+    
+      .direction {
+        width: 68px;
+        height: 68px;
+    
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -3145,24 +3204,42 @@
 
 
   document
-    .querySelectorAll(
-      ".direction"
-    )
-    .forEach(
-      button => {
-
-        button.addEventListener(
-          "pointerdown",
-          () => {
-
-            setDirection(
-              button.dataset
-                .direction
-            );
-          }
-        );
-      }
-    );
+    .querySelectorAll(".direction")
+    .forEach(button => {
+  
+      button.addEventListener(
+        "pointerdown",
+        event => {
+  
+          event.preventDefault();
+  
+          button.classList.add("active");
+  
+          setDirection(
+            button.dataset.direction
+          );
+        }
+      );
+  
+      const releaseButton = () => {
+        button.classList.remove("active");
+      };
+  
+      button.addEventListener(
+        "pointerup",
+        releaseButton
+      );
+  
+      button.addEventListener(
+        "pointercancel",
+        releaseButton
+      );
+  
+      button.addEventListener(
+        "pointerleave",
+        releaseButton
+      );
+    });
 
 
   /* =====================================================
