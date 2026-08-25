@@ -86,17 +86,29 @@
     .terminal-title span {
       color: var(--green-light);
     }
-
+    
+    .controls {
+      text-align: center;
+    
+      margin: 0 0 22px;
+    
+      color: var(--muted);
+    
+      font-family: monospace;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+    
     .hud {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-
+    
       gap: 14px;
-
+    
       margin-bottom: 25px;
-
+    
       font-family: monospace;
     }
 
@@ -314,6 +326,20 @@
     <div class="terminal-title">
       <span>$</span> ./pacman --eat=contributions
     </div>
+    
+    <p class="controls">
+      MOVE:
+      <kbd>↑</kbd>
+      <kbd>↓</kbd>
+      <kbd>←</kbd>
+      <kbd>→</kbd>
+      or
+      <kbd>W</kbd>
+      <kbd>A</kbd>
+      <kbd>S</kbd>
+      <kbd>D</kbd>
+      · Eat contributions · Avoid ghosts
+    </p>
 
     <div class="hud">
 
@@ -354,25 +380,6 @@
       class="message"
     >
       Press an arrow key or WASD to start.
-    </div>
-
-    <div class="instructions">
-
-      <div class="keyboard">
-        Move with
-        <kbd>W</kbd>
-        <kbd>A</kbd>
-        <kbd>S</kbd>
-        <kbd>D</kbd>
-
-        or
-
-        <kbd>↑</kbd>
-        <kbd>←</kbd>
-        <kbd>↓</kbd>
-        <kbd>→</kbd>
-      </div>
-
     </div>
 
     <div class="legend">
